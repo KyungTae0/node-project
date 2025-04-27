@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: board-mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: board
+      MYSQL_USER: board_user
+      MYSQL_PASSWORD: board_password
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - board-mysql-data:/var/lib/mysql
+
+volumes:
+  board-mysql-data:
