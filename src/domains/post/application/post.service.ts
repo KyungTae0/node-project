@@ -1,9 +1,11 @@
+import { KeywordAlertService } from '@keywordAlert/application/keywordAlert.service';
+import { KeywordAlertTarget } from '@keywordAlert/shared/keyword-alert.enum';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PostRepositoryImpl } from '@post/infrastructure/persistence/post.repository.impl';
 import { CreatePostInput } from '@post/presentation/dtos/create-post-input.dto';
 import { CreatePostOutput } from '@post/presentation/dtos/create-post-output.dto';
 import { DeletePostOutput } from '@post/presentation/dtos/delete-post-output.dto';
-import { DeletePostInput } from '@post/presentation/dtos/delete-post.input.dto';
+import { DeletePostInput } from '@post/presentation/dtos/delete-post-input.dto';
 import { GetPostsInput } from '@post/presentation/dtos/get-posts-input.dto';
 import { GetPostsOutput } from '@post/presentation/dtos/get-posts-output.dto';
 import { UpdatePostInput } from '@post/presentation/dtos/update-post-input.dto';
@@ -13,8 +15,12 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly postRepository: PostRepositoryImpl) {}
+  constructor(
+    private readonly postRepository: PostRepositoryImpl,
+    private readonly keywordAlertService: KeywordAlertService,
+  ) {}
 
+  //#region public
   async getPosts({
     page,
     author,
@@ -23,8 +29,8 @@ export class PostService {
   }: GetPostsInput): Promise<GetPostsOutput> {
     try {
       const [posts, totalCount] = await this.postRepository.findPosts({
-        page: page || '1',
-        size: size || '20',
+        page,
+        size,
         author,
         title,
       });
@@ -52,6 +58,14 @@ export class PostService {
       const savedPost = await this.postRepository.createPost({
         ...input,
         password: hashedPassword,
+      });
+
+      // 작성한 게시글의 본문, 제목에서 사용된 단어를 키워드로 등록 해놓은 사람들에게 알람
+      await this.keywordAlertService.sendKeywordAlert({
+        // 조회할 키워드는 게시글 제목, 본문
+        content: [input.content, input.title].join(' '),
+        entity: savedPost,
+        target: KeywordAlertTarget.POST,
       });
 
       return { success: true, id: savedPost.id };
@@ -102,7 +116,7 @@ export class PostService {
     id: number,
     input: DeletePostInput,
   ): Promise<DeletePostOutput> {
-    // 1. 삭제할 게시글 조회회
+    // 1. 삭제할 게시글 조회
     const post = await this.postRepository.findOneById(id);
     if (!post) {
       throw new HttpException(
@@ -111,7 +125,7 @@ export class PostService {
       );
     }
 
-    // 2. 게시글 비밀번호 확인인
+    // 2. 게시글 비밀번호 확인
     const isMatch = await bcrypt.compare(input.password, post.password);
     if (!isMatch) {
       throw new HttpException(
@@ -121,7 +135,8 @@ export class PostService {
     }
 
     // 3. 게시글 삭제
-    await this.postRepository.deletePost(id);
-    return { success: false, id: post.id };
+    await this.postRepository.deleteOneById(id);
+    return { success: true, id: post.id };
   }
+  //#endregion public
 }

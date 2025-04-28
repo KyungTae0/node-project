@@ -77,7 +77,7 @@ export class PostRepositoryImpl implements PostRepository {
   /**
    * @alias 게시글 삭제
    */
-  async deletePost(id: number): Promise<void> {
+  async deleteOneById(id: number): Promise<void> {
     await this.repository.delete(id);
   }
 }

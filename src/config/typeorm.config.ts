@@ -4,13 +4,11 @@ import { PostEntity } from 'domains/post/domain/entities/post.entity';
 import * as dotenv from 'dotenv';
 import { DataSourceOptions } from 'typeorm';
 // 환경 변수 로드
-// const env = dotenv.config({
-//   path: `.env`,
-// }).parsed;
-
-// 항상 무조건 dotenv를 로드
 dotenv.config();
 
+/**
+ * @alias TypeORM 데이터베이스 설정
+ */
 const ormConfig: DataSourceOptions = {
   type: 'mysql',
   host: process.env.DATABASE_HOST,
@@ -24,8 +22,5 @@ const ormConfig: DataSourceOptions = {
   timezone: '+09:00',
   charset: 'utf8mb4',
 };
-
-// console.log('process.env.MIGRATION_ENV', process.env.MIGRATION_ENV);
-console.log('process.env.DATABASE_HOST', process.env.DATABASE_HOST);
 
 export default ormConfig;

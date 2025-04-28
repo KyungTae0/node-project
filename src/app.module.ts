@@ -6,15 +6,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import config from '@config/config';
 import * as Joi from 'joi';
 import ormConfig from '@config/typeorm.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, //어디서나 config module 접근 가능하게 함(global)
-      load: [config],
+      isGlobal: true,
+      // load: [config],
       envFilePath: `.env`,
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('dev').required(),

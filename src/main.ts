@@ -21,10 +21,12 @@ async function bootstrap() {
 
   const portNumber = 7070;
   app.enableCors({
-    // origin: allowlist, // 허락하고자 하는 요청 주소.
+    // 허락하고자 하는 요청 주소.
+    // origin: allowlist,
     credentials: true,
   });
-  app.setGlobalPrefix('api'); //모든 RESTAPI는 api로 시작한다. ex: http://localhost:7070/api/*
+  //모든 RESTAPI는 api로 시작한다. ex: http://localhost:7070/api/*
+  app.setGlobalPrefix('api');
 
   app.use(express.json({ limit: '50mb' }));
   app.use(express.urlencoded({ limit: '50mb', extended: true }));

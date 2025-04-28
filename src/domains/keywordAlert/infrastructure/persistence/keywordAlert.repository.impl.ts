@@ -1,18 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { KeywordAlertRepository } from '@keywordAlert/domain/repositories/keywordAlert.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CommentEntity } from '@comment/domain/entities/comment.entity';
+import { KeywordAlertEntity } from '@keywordAlert/domain/entities/keywordAlert.entity';
 
 @Injectable()
 export class KeywordAlertRepositoryImpl implements KeywordAlertRepository {
   constructor(
-    @InjectRepository(CommentEntity)
-    private readonly repository: Repository<CommentEntity>,
+    @InjectRepository(KeywordAlertEntity)
+    private readonly repository: Repository<KeywordAlertEntity>,
   ) {}
 
-  findKeyword(input: unknown): Promise<[any[], number]> {
-    console.log(input, this.repository);
-    return null;
+  /**
+   * @alias 키워드 알림 조회
+   * @description 주어진 내용에서 키워드가 포함된 알림을 찾는 메서드
+   */
+  async findAlertsByKeyword(content: string[]): Promise<KeywordAlertEntity[]> {
+    // 키워드가 포함된 알림을 찾기
+    return this.repository.find({
+      select: ['id', 'keyword', 'author'],
+      where: { keyword: In(content) },
+    });
   }
 }

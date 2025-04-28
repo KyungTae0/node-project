@@ -30,13 +30,12 @@ export class CommentRepositoryImpl implements CommentRepository {
     });
   }
 
-  // /**
-  //  * @alias 댓글 생성
-  //  */
-  // async createComment(input: CreateCommentInput): Promise<CommentEntity> {
-  //   const comment = this.repository.create(input);
-  //   return this.repository.save(comment);
-  // }
+  /**
+   * @alias 댓글 생성
+   */
+  async save(input: CommentEntity): Promise<CommentEntity> {
+    return this.repository.save(input);
+  }
 
   /**
    * @alias 댓글 ID로 댓글 조회

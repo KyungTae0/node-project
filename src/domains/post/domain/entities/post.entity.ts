@@ -59,6 +59,13 @@ export class PostEntity {
   @CreateDateColumn({
     type: 'datetime',
     comment: '게시글 생성 시각',
+    precision: null,
+    default: () => 'CURRENT_TIMESTAMP',
+    transformer: {
+      to: (value: Date) => value,
+      from: (value: string) =>
+        new Date(value).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+    },
   })
   createdAt: Date;
 
@@ -69,6 +76,14 @@ export class PostEntity {
   @UpdateDateColumn({
     type: 'datetime',
     comment: '게시글 수정 시각',
+    precision: null,
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+    transformer: {
+      to: (value: Date) => value,
+      from: (value: string) =>
+        new Date(value).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+    },
   })
   updatedAt: Date;
 

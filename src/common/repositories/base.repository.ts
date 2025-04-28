@@ -1,9 +1,9 @@
-import { DeepPartial, DeleteResult, SelectQueryBuilder } from 'typeorm';
+import { DeepPartial, SelectQueryBuilder } from 'typeorm';
 
 /**
- * @alias Repository의 공통된 속성을 정의합니다.
+ * @alias Repository의 공통된 속성을 정의
  * @description 이 곳엔 Entity의 공통 적인 속성만을 정의하며
- * 보다 특수한 속성은 각 domain의 상속받는 Repository에서 정의합니다.
+ * 보다 특수한 속성은 각 domain의 상속받는 Repository에서 정의
  */
 export interface BaseRepository<T> {
   /**
@@ -13,27 +13,27 @@ export interface BaseRepository<T> {
   createQueryBuilder?(alias?: string): SelectQueryBuilder<T>;
 
   /**
-   * @alias Entity를 생성합니다.
+   * @alias Entity 생성
    */
   create?(entityLike: DeepPartial<T>): T;
 
   /**
-   * @alias Entity를 저장합니다.
+   * @alias Entity 저장
    */
   save?(entity: T): Promise<T>;
 
   /**
-   * @alias PK로 지정한 한 개의 Record를 조회합니다.
+   * @alias PK로 지정한 한 개의 Record를 조회
    */
   findOneById?(id: number): Promise<T | null>;
 
   /**
-   * @alias PK로 지정한 여러러 개의 Record를 조회합니다.
+   * @alias PK로 지정한 여러러 개의 Record를 조회
    */
   findById?(id: number): Promise<T[] | null>;
 
   /**
-   * @alias PK로 지정한 Record 삭제합니다.
+   * @alias PK로 지정한 Record 삭제
    */
-  deleteOneById?(id: number): Promise<DeleteResult>;
+  deleteOneById?(id: number): Promise<void>;
 }

@@ -6,6 +6,7 @@ import { DataSource } from 'typeorm';
 
 /**
  * @alias 초기 데이터 삽입
+ * @description 테이블당 10개씩만
  */
 async function seed() {
   const dataSource = new DataSource(ormConfig);
@@ -17,7 +18,8 @@ async function seed() {
       title: `게시글 ${i + 1}`,
       content: `게시글 ${i + 1}의 내용`,
       author: `작성자${i + 1}`,
-      password: `hashed-password${i + 1}`, // (임시 해시. 실제 bcrypt 처리도 가능)
+      // 비밀번호 임시
+      password: `hashed-password${i + 1}`,
     })),
   );
 

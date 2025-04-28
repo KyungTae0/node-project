@@ -13,7 +13,7 @@ export class KeywordAlertEntity {
 
   /**
    * @alias 작성자 이름
-   * @description 작성자는 동명이인이 없다고 가정한다.
+   * @description 작성자는 동명이인이 없다고 침
    */
   @Column({ type: 'varchar', length: 100, comment: '작성자 이름' })
   author: string;

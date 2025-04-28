@@ -2,7 +2,9 @@
 import ormConfig from '@config/typeorm.config';
 import { DataSource } from 'typeorm';
 
-// db 접속 정보 반환
+/**
+ * @alias Migration용 DataSource 반환
+ */
 async function initializeDataSource() {
   const datasource = new DataSource({
     ...ormConfig,

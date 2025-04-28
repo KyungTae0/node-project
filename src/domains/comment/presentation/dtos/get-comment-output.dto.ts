@@ -1,3 +1,5 @@
+import { CoreOutput } from '@common/dtos/core.dto';
+
 /**
  * @alias 댓글 하나에 대한 정보
  */
@@ -31,9 +33,21 @@ export class CommentDto {
 /**
  * @alias 댓글 목록 조회 응답
  */
-export class GetCommentsOutput {
-  nowPage: number; // 현재 페이지 번호
-  totalPage: number; // 총 페이지 수
-  totalCount: number; // 전체 댓글 수
-  comments: CommentDto[]; // 댓글 목록 (트리 구조)
+export class GetCommentsOutput extends CoreOutput {
+  /**
+   * @alias 현재 페이지 번호
+   */
+  nowPage: number;
+  /**
+   * @alias 총 페이지 수
+   */
+  totalPage: number;
+  /**
+   * @alias 전체 댓글 수
+   */
+  totalCount: number;
+  /**
+   * @alias 댓글 목록
+   */
+  comments: CommentDto[];
 }

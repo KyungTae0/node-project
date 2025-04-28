@@ -7,5 +7,4 @@ export interface PostRepository extends BaseRepository<PostEntity> {
   findPosts(input: GetPostsInput): Promise<[PostEntity[], number]>;
   createPost(input: CreatePostInput): Promise<PostEntity>;
   updatePost(id: number, input: Partial<PostEntity>): Promise<PostEntity>;
-  deletePost(id: number): Promise<void>;
 }

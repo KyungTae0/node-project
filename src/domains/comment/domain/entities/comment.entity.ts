@@ -38,8 +38,15 @@ export class CommentEntity {
    */
   @CreateDateColumn({
     type: 'datetime',
-    precision: 6,
+    precision: null,
+    default: () => 'CURRENT_TIMESTAMP()',
     comment: '댓글 작성 시각',
+    transformer: {
+      to: (value: Date) => value,
+      // KST 시간 변환
+      from: (value: string) =>
+        new Date(value).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+    },
   })
   createdAt: Date;
 
