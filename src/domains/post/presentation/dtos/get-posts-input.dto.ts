@@ -23,7 +23,7 @@ export class GetPostsInput {
   @IsOptional()
   @IsNumber()
   @ApiProperty({
-    description: '한 페이지에서 조회할 댓글 수',
+    description: '한 페이지에서 조회할 게시글 수',
     example: 20,
     required: false,
   })
@@ -36,7 +36,7 @@ export class GetPostsInput {
   @IsString()
   @ApiProperty({
     description: '게시글 제목',
-    example: '게시글 제목 123',
+    example: '게시글 1',
     required: false,
   })
   title?: string;
@@ -48,7 +48,7 @@ export class GetPostsInput {
   @IsString()
   @ApiProperty({
     description: '작성자',
-    example: 'KyungTae',
+    example: '작성자1',
     required: false,
   })
   author?: string;

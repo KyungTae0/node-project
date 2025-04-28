@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "ES2024",
     "module": "CommonJS",
-    "lib": ["ES2024"],
+    "lib": [
+      "ES2024"
+    ],
     "moduleResolution": "node",
     "baseUrl": "./src",
     "rootDir": "./src",
@@ -28,14 +30,35 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@posts/*": ["domains/posts/*"],
-      "@post/*": ["domains/post/*"],
-      "@comment/*": ["domains/comment/*"],
-      "@keywordAlert/*": ["domains/keywordAlert/*"],
-      "@common/*": ["common/*"],
-      "@config/*": ["config/*"],
-      "*": ["*"]
+      "@posts/*": [
+        "domains/posts/*"
+      ],
+      "@post/*": [
+        "domains/post/*"
+      ],
+      "@comment/*": [
+        "domains/comment/*"
+      ],
+      "@keywordAlert/*": [
+        "domains/keywordAlert/*"
+      ],
+      "@common/*": [
+        "common/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "*": [
+        "*"
+      ],
+      "@user/*": [
+        "domains/user/*"
+      ]
     }
   },
-  "exclude": ["node_modules", "dist", "test"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test"
+  ]
 }

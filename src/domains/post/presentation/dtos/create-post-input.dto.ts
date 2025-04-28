@@ -46,7 +46,7 @@ export class CreatePostInput {
   @IsNotEmpty({ message: '게시글 비밀번호는 필수 값입니다.' })
   @ApiProperty({
     description: '게시글 비밀번호',
-    example: '1234!@#',
+    example: '1234',
     required: true,
   })
   password: string;

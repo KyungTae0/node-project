@@ -241,6 +241,9 @@ const createDDDStructure = (dddName: string, includeEntity: boolean) => {
   }
 };
 
+/**
+ * @alias app.module 수정
+ */
 const updateAppModule = (dddName: string) => {
   const moduleName = `${capitalize(dddName)}Module`;
   const appModulePath = path.join(process.cwd(), 'src', 'app.module.ts');
@@ -262,7 +265,7 @@ const updateAppModule = (dddName: string) => {
   content = importStatement + content;
 
   // @Module({ imports: [...] }) 배열 수정
-  const importsArrayRegex = /imports\s*:\s*\[((?:.|\s)*?)\]/m;
+  const importsArrayRegex = /imports\s*:\s*\[(.*?)\]/s;
   const match = importsArrayRegex.exec(content);
 
   if (!match) {
@@ -272,12 +275,12 @@ const updateAppModule = (dddName: string) => {
   const existingImports = match[1].trim();
 
   const updatedImports = existingImports
-    ? `${existingImports},\n    ${moduleName}`
+    ? `${existingImports},\n    ${moduleName}` // 새로운 모듈을 추가할 때 적절한 줄바꿈을 추가
     : `${moduleName}`;
 
   const updatedContent = content.replace(
     importsArrayRegex,
-    `imports: [${updatedImports}]`,
+    `imports: [\n    ${updatedImports}\n  ]`, // 올바른 배열 포맷에 맞게 수정
   );
 
   fs.writeFileSync(appModulePath, updatedContent);
