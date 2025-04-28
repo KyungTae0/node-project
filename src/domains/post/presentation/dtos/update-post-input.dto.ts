@@ -1,4 +1,5 @@
 // src/domains/post/interface/dto/update-post.input.ts
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNotEmpty } from 'class-validator';
 
 export class UpdatePostInput {
@@ -7,6 +8,11 @@ export class UpdatePostInput {
    */
   @IsOptional()
   @IsString()
+  @ApiProperty({
+    description: '게시글 제목',
+    example: '게시글 제목 123',
+    required: false,
+  })
   title?: string;
 
   /**
@@ -14,6 +20,11 @@ export class UpdatePostInput {
    */
   @IsOptional()
   @IsString()
+  @ApiProperty({
+    description: '게시글 본문',
+    example: '게시글 본문 123',
+    required: false,
+  })
   content?: string;
 
   /**
@@ -22,5 +33,10 @@ export class UpdatePostInput {
    */
   @IsString()
   @IsNotEmpty({ message: '게시글 비밀번호는 필수 값입니다.' })
+  @ApiProperty({
+    description: '게시글 비밀번호',
+    example: '1234',
+    required: true,
+  })
   password: string;
 }

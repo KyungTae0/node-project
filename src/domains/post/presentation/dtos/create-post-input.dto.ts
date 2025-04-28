@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreatePostInput {
@@ -6,6 +7,11 @@ export class CreatePostInput {
    */
   @IsString()
   @IsNotEmpty({ message: '게시글 제목은 필수 값입니다.' })
+  @ApiProperty({
+    description: '게시글 제목',
+    example: '게시글 제목',
+    required: true,
+  })
   title: string;
 
   /**
@@ -13,6 +19,11 @@ export class CreatePostInput {
    */
   @IsString()
   @IsNotEmpty({ message: '게시글 본문은 필수 값입니다.' })
+  @ApiProperty({
+    description: '게시글 본문',
+    example: '게시글 본문',
+    required: true,
+  })
   content: string;
 
   /**
@@ -21,6 +32,11 @@ export class CreatePostInput {
    */
   @IsString()
   @IsNotEmpty({ message: '게시글 작성자명은 필수 값입니다.' })
+  @ApiProperty({
+    description: '게시글 작성자명',
+    example: '게시글 작성자명',
+    required: true,
+  })
   author: string;
 
   /**
@@ -28,5 +44,10 @@ export class CreatePostInput {
    */
   @IsString()
   @IsNotEmpty({ message: '게시글 비밀번호는 필수 값입니다.' })
+  @ApiProperty({
+    description: '게시글 비밀번호',
+    example: '1234!@#',
+    required: true,
+  })
   password: string;
 }

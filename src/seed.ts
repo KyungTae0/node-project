@@ -18,8 +18,8 @@ async function seed() {
       title: `게시글 ${i + 1}`,
       content: `게시글 ${i + 1}의 내용`,
       author: `작성자${i + 1}`,
-      // 비밀번호 임시
-      password: `hashed-password${i + 1}`,
+      // 비밀번호 임시로 1234로 지정
+      password: `$2b$10$2Wn/YgdwgJavxTLQWiIrzeVUVV8pvcueuak2EcGye7hIiqhBhSjXq`,
     })),
   );
 
@@ -67,9 +67,13 @@ async function seed() {
 
   // KeywordAlert 10개 삽입
   await dataSource.getRepository(KeywordAlertEntity).save(
+    // "키워드1" 을 알림으로하는 작성자 -> 작성자1,작성자2
+    // 키워드1~10 / 작성자1~5
     Array.from({ length: 10 }, (_, i) => ({
+      // 작성자1~5
       author: `작성자${i + 1}`,
-      keyword: `키워드${i + 1}`,
+      // 키워드1~10
+      keyword: `키워드${Math.floor(i / 2) + 1}`,
     })),
   );
 
