@@ -71,7 +71,7 @@ docker-compose up -d
 
 | 3. 테이블 스키마 생성 (typeorm migration)
 
-스키마 생성을 위한 sql 파일 생성성
+스키마 생성을 위한 sql 파일 생성
 
 ```bash
 npm run migration:generate
@@ -113,8 +113,9 @@ npm run start:dev
 
 ## API 문서 & 테스트
 
-| `nestjs/swagger` 사용 / swagger를 통해 API 테스트 가능
-http://localhost:7070/api
+- `nestjs/swagger` 사용
+- swagger를 통해 API 테스트 가능
+  http://localhost:7070/api
 
 ## 주요 스크립트
 
