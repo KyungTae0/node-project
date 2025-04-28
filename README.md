@@ -19,7 +19,7 @@
 
 ## 설치 및 실행 방법
 
-### MySQL 서버 띄우기 (Docker)
+### 1. MySQL 서버 띄우기 (Docker)
 
 1. 도커 로그인
 
@@ -39,7 +39,7 @@
 - npm run seed
   - 게시글, 댓글, 키워드 알람 테이블의 초기 데이터 세팅
 
-### .env 파일 설정
+### 2. .env 파일 설정
 
 1. .env 파일 생성
 
@@ -54,7 +54,7 @@ DATABASE_PASSWORD=board_password
 DATABASE_NAME=board
 NODE_ENV=development
 
-### 패키지 설치
+### 3. 패키지 설치
 
 npm install
 
