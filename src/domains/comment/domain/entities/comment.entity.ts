@@ -60,12 +60,12 @@ export class CommentEntity {
     nullable: true,
   })
   @JoinColumn({ name: 'parent_comment_id' })
-  parent: CommentEntity | null;
+  parentComment: CommentEntity | null;
 
   /**
    * @alias 자식 댓글 목록
    * @description 이 댓글을 부모로 가지는 대댓글 리스트
    */
-  @OneToMany(() => CommentEntity, (comment) => comment.parent)
+  @OneToMany(() => CommentEntity, (comment) => comment.parentComment)
   children: CommentEntity[];
 }

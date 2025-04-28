@@ -23,10 +23,6 @@ const updateTsConfig = (dddName: string) => {
     throw Error('tsconfig.json 파일을 찾을 수 없습니다.');
   }
 
-  console.log(
-    'fs.readFileSync(tsconfigPath, ',
-    fs.readFileSync(tsconfigPath, 'utf-8'),
-  );
   const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
 
   const aliasKey = `@${dddName}/*`;
@@ -184,7 +180,7 @@ const createDDDStructure = (dddName: string, includeEntity: boolean) => {
         import { ${capitalize(dddName)}Repository } from '@${dddName}/domain/repositories/${dddName}.repository';
         
         @Injectable()
-        export class ${capitalize(dddName)}RepositoryImpl extends Repository<${capitalize(dddName)}Entity> implements ${capitalize(dddName)}Repository { }`,
+        export class ${capitalize(dddName)}RepositoryImpl implements ${capitalize(dddName)}Repository { }`,
       );
     }
 
@@ -258,7 +254,7 @@ const updateAppModule = (dddName: string) => {
 
   // 이미 import 했는지 확인
   if (content.includes(importStatement)) {
-    console.log(`${moduleName} 모듈은 이미 import 되어 있습니다.`);
+    Logger.log(`${moduleName} 모듈은 이미 import 되어 있습니다.`);
     return;
   }
 
@@ -285,7 +281,7 @@ const updateAppModule = (dddName: string) => {
   );
 
   fs.writeFileSync(appModulePath, updatedContent);
-  console.log('✅ app.module.ts 업데이트 완료');
+  Logger.log('app.module.ts 업데이트 완료');
 };
 
 /**
@@ -327,7 +323,7 @@ const updateORMConfig = (dddName: string) => {
 
       fs.writeFileSync(configFilePath, fileContent);
     } else {
-      console.log(`${entityToAdd} Entity는 이미 추가되었습니다.`);
+      Logger.log(`${entityToAdd} Entity는 이미 추가되었습니다.`);
     }
   } else {
     throw new Error('[typeorm.config.ts] entities 배열을 찾을 수 없습니다.');

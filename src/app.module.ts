@@ -26,7 +26,6 @@ import ormConfig from '@config/typeorm.config';
       }),
     }),
     TypeOrmModule.forRoot(ormConfig),
-
     PostModule,
     CommentModule,
     KeywordAlertModule,

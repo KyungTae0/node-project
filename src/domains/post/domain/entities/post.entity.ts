@@ -6,6 +6,7 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 /**
@@ -22,6 +23,7 @@ export class PostEntity {
   /**
    * @alias 게시글 제목
    */
+  @Index()
   @Column({ type: 'varchar', length: 255, comment: '게시글 제목' })
   title: string;
 
@@ -34,6 +36,7 @@ export class PostEntity {
   /**
    * @alias 작성자 이름
    */
+  @Index()
   @Column({ type: 'varchar', length: 100, comment: '게시글 작성자 이름' })
   author: string;
 
@@ -54,8 +57,8 @@ export class PostEntity {
    */
   @CreateDateColumn({
     type: 'datetime',
-    precision: 6,
     comment: '게시글 생성 시각',
+    default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
@@ -65,8 +68,9 @@ export class PostEntity {
    */
   @UpdateDateColumn({
     type: 'datetime',
-    precision: 6,
     comment: '게시글 수정 시각',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
 

@@ -28,6 +28,11 @@ export interface BaseRepository<T> {
   findOneById?(id: number): Promise<T | null>;
 
   /**
+   * @alias PK로 지정한 여러러 개의 Record를 조회합니다.
+   */
+  findById?(id: number): Promise<T[] | null>;
+
+  /**
    * @alias PK로 지정한 Record 삭제합니다.
    */
   deleteOneById?(id: number): Promise<DeleteResult>;

@@ -21,6 +21,7 @@ const ormConfig: DataSourceOptions = {
   entities: [PostEntity, CommentEntity, KeywordAlertEntity],
   synchronize: false,
   logging: true,
+  timezone: '+09:00',
   charset: 'utf8mb4',
 };
 

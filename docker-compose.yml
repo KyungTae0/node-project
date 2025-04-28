@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql:latest
+    image: mysql:8.0
     container_name: board-mysql
     restart: always
     ports:
@@ -12,9 +12,11 @@ services:
       MYSQL_DATABASE: board
       MYSQL_USER: board_user
       MYSQL_PASSWORD: board_password
+      TZ: Asia/Seoul
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=Asia/Seoul
     volumes:
       - board-mysql-data:/var/lib/mysql
 
