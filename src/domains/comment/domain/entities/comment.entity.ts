@@ -55,7 +55,7 @@ export class CommentEntity {
    * @alias 부모 댓글
    * @description 대댓글일 경우 참조하는 부모 댓글 (없으면 NULL)
    */
-  @ManyToOne(() => CommentEntity, (comment) => comment.children, {
+  @ManyToOne(() => CommentEntity, (comment) => comment.childrenComment, {
     onDelete: 'CASCADE',
     nullable: true,
   })
@@ -67,5 +67,5 @@ export class CommentEntity {
    * @description 이 댓글을 부모로 가지는 대댓글 리스트
    */
   @OneToMany(() => CommentEntity, (comment) => comment.parentComment)
-  children: CommentEntity[];
+  childrenComment: CommentEntity[];
 }

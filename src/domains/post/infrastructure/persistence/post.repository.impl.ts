@@ -72,12 +72,6 @@ export class PostRepositoryImpl implements PostRepository {
   ): Promise<PostEntity> {
     await this.repository.update(id, input);
     return this.findOneById(id);
-    // // 업데이트 할 record 검색
-    // const post = await this.findOneById(id);
-    // // 업데이트 객체 합치고
-    // Object.assign(post, input);
-    // // 업데이트 -> update 함수 쓰면 updatedAt 자동 갱신 안됨
-    // return await this.repository.save(post);
   }
 
   /**

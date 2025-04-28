@@ -55,10 +55,10 @@ export class PostEntity {
    * @alias 게시글 생성 시각
    * @description 게시글이 최초로 작성된 시간 (자동 기록)
    */
+  @Index()
   @CreateDateColumn({
     type: 'datetime',
     comment: '게시글 생성 시각',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
@@ -69,8 +69,6 @@ export class PostEntity {
   @UpdateDateColumn({
     type: 'datetime',
     comment: '게시글 수정 시각',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
 
