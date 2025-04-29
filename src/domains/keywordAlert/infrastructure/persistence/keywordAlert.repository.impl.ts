@@ -22,4 +22,11 @@ export class KeywordAlertRepositoryImpl implements KeywordAlertRepository {
       where: { keyword: In(content) },
     });
   }
+
+  /**
+   * @alias 전체 검색
+   */
+  async findAll(): Promise<KeywordAlertEntity[]> {
+    return this.repository.find();
+  }
 }

@@ -14,6 +14,7 @@ import {
   ApiForbiddenResponse,
   ApiOperation,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { PostService } from '@post/application/post.service';
 import { CreatePostInput } from '@post/presentation/dtos/create-post-input.dto';
@@ -25,6 +26,7 @@ import { GetPostsOutput } from '@post/presentation/dtos/get-posts-output.dto';
 import { UpdatePostInput } from '@post/presentation/dtos/update-post-input.dto';
 import { UpdatePostOutput } from '@post/presentation/dtos/update-post-output.dto';
 
+@ApiTags('게시글 API')
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}

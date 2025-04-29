@@ -15,28 +15,34 @@ export class KeywordAlertService {
   //#region public
   /**
    * @alias 알림을 보내는 함수
-   * @description 게시글 또는 댓글에서 내용 추출 후 등록 된 키워드 검색색
+   * @description 게시글 또는 댓글에서 내용 추출 후 등록 된 키워드 검색
    */
   async sendKeywordAlert({
     content,
     entity,
     target,
   }: SendKeywordAlertInput): Promise<void> {
-    const alerts = await this.keywordAlertRepository.findAlertsByKeyword(
-      // 키워드는 공백 기준 최소 2글자 이상 단위로 쪼개서 보낸다
-      this.extractKeywords(content),
-    );
-    // 해당 키워드가 포함된 알림을 등록한 모든 작성자에게 알림을 보낸다.
+    // keywordAlert 테이블에서 등록된 키워드 모두 가져오기
+    const alerts = await this.keywordAlertRepository.findAll();
+
+    // 게시글 본문/댓글 내용에 키워드가 포함되어 있는지 확인
     alerts.forEach((alert) => {
-      // 게시글일경우
-      if (target === KeywordAlertTarget.POST) {
+      // 게시글일 경우
+      if (
+        target === KeywordAlertTarget.POST &&
+        content.includes(alert.keyword)
+      ) {
         this.triggerNotification({
           author: alert.author,
           content: `${alert.author} 님, "${(entity as PostEntity).title}" 게시글의 본문에서 키워드 "${alert.keyword}"가 등록되었습니다.`,
         });
-        // 댓글일경우
-      } else if (target === KeywordAlertTarget.COMMENT) {
-        return this.triggerNotification({
+      }
+      // 댓글일 경우
+      else if (
+        target === KeywordAlertTarget.COMMENT &&
+        content.includes(alert.keyword)
+      ) {
+        this.triggerNotification({
           author: alert.author,
           content: `${alert.author} 님, "${(entity as CommentEntity).post.title}" 게시글의 댓글에서 키워드 "${alert.keyword}"가 등록되었습니다.`,
         });
@@ -56,17 +62,5 @@ export class KeywordAlertService {
     Logger.log(content);
   }
 
-  /**
-   * @alias 내용에서 키워드 추출
-   * @description
-   * 1. 띄워쓰기로 분리
-   * 2. 2글자 이상인 단어만 추출
-   * 3. 중복 제거
-   */
-  private extractKeywords(content: string): string[] {
-    return Array.from(
-      new Set(content.split(' ').filter((word) => word.length > 2)),
-    );
-  }
   //#endregion private
 }

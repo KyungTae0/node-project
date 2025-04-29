@@ -4,4 +4,5 @@ import { KeywordAlertEntity } from '@keywordAlert/domain/entities/keywordAlert.e
 export interface KeywordAlertRepository
   extends BaseRepository<KeywordAlertEntity> {
   findAlertsByKeyword(content: string[]): Promise<KeywordAlertEntity[]>;
+  findAll(): Promise<KeywordAlertEntity[]>;
 }
